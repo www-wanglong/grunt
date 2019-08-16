@@ -1,23 +1,26 @@
 module.exports = function(grunt) {
 
-  // Project configuration.任务配置代码(调用插件配置一下要执行的任务和实现的功能)
+  var sassStyle = "expanded"
+
+  //任务配置代码 -- 调用插件配置一下要执行额代码和实现的功能
   grunt.initConfig({
-    pkg: grunt.file.readJSON('package.json'),
-    uglify: {
-      options: {
-        banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-      },
-      build: {
-        src: 'src/<%= pkg.name %>.js',
-        dest: 'build/<%= pkg.name %>.min.js'
+    pkg: grunt.file.readJSON("package.json"),
+    sass: {
+      output: {
+        options: {
+          style: sassStyle
+        },
+        files: {
+          './style.css': './scss/style.scss'
+        }
       }
     }
-  });
+  })
 
-  //Load the plugin that provides the "uglify" task. 插件加载代码（把需要用到的插件加载进来）
-  grunt.loadNpmTasks('grunt-contrib-uglify');
+  //插件加载代码 -- 把需要的插件加载进来
+  grunt.loadNpmTasks('grunt-contrib-sass')
 
-  // Default task(s).任务注册代码（注册一个task 里面包含刚在钱吗编写的任务配置代码）
-  grunt.registerTask('default', ['uglify']);
-
-};
+  //任务注册代码 -- 注册一个task 包含前面编写额任务配置代码
+  grunt.registerTask('outputcss', ['sass'])
+  grunt.registerTask('default')
+}
